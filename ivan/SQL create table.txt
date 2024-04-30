@@ -1,0 +1,77 @@
+use assignment1;
+
+DROP TABLE accounts;
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+ `id` INT NOT NULL AUTO_INCREMENT,
+ `username` varchar(50) NOT NULL,
+ `password` varchar(255) NOT NULL,
+ `email` varchar(100),
+ `user_group` varchar(255) NOT NULL,
+ `user_status` varchar(15),
+ UNIQUE KEY (`id`),
+ PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `grouplist` ADD PRIMARY KEY (`user_group`);
+
+INSERT INTO `accounts` (`username`, `password`, `email`, `user_group`, `status`) VALUES ('test',
+'test', 'test@test.com', NULL, 'active');
+
+ALTER TABLE `accounts` ADD PRIMARY KEY (`username`);
+
+CREATE TABLE IF NOT EXISTS `grouplist` (
+ `user_group` varchar(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `grouplist` (`user_group`) VALUES ('admin');
+
+ALTER TABLE `grouplist` 
+MODIFY `user_group` varchar(100)
+NOT NULL;
+
+ALTER TABLE `accounts` MODIFY `email` varchar(50) NULL;
+
+SELECT * from assignment1.grouplist;
+
+INSERT INTO `accounts` (`username`, `password`, `email`, `user_group`, `user_status`) VALUES ('test2',
+'test2', 'test@test.com', NULL, 'active');
+INSERT INTO `accounts` (`username`, `password`, `email`, `user_group`, `user_status`) VALUES ('test3',
+'test3', 'test@test.com', NULL, 'active');
+INSERT INTO `accounts` (`username`, `password`, `email`, `user_group`, `user_status`) VALUES ('test4',
+'test4', 'test@test.com', NULL, 'active');
+INSERT INTO `accounts` (`username`, `password`, `email`, `user_group`, `user_status`) VALUES ('test5',
+'test5', 'test@test.com', NULL, 'disabled');
+
+UPDATE accounts SET user_status = 'disabled' WHERE username = 'test';
+
+ALTER TABLE accounts RENAME COLUMN `status` TO `user_status`;
+
+DELETE FROM accounts WHERE username = 'test';
+
+DELETE FROM grouplist WHERE user_group = 'project lead';
+
+SELECT user_group FROM grouplist;
+
+
+
+SELECT * FROM assignment1.accounts;
+
+DROP TABLE grouplist;
+
+select * from accounts where `user_group` is null;
+
+ALTER TABLE accounts rename column `status` to `user_status`;
+
+ALTER TABLE `accounts` MODIFY `email` varchar(50) DEFAULT NULL;
+ALTER TABLE `accounts` MODIFY `user_group` varchar(50) DEFAULT NULL;
+
+UPDATE `accounts` SET `user_group` = 'admin' WHERE `username` = 'test';
+UPDATE `accounts` SET `user_group` = 'pl,dev,police' WHERE `username` = 'test';
+
+INSERT INTO `grouplist` (`user_group`) VALUES ('pm');
+DELETE FROM grouplist WHERE user_group = 'pangsai';
+DELETE FROM accounts WHERE id = '2';
+
+UPDATE `accounts` SET `email` = 'test@gmail.com' WHERE `username` = 'test';
+UPDATE `accounts` SET `email` = 'test1@gmail.com' WHERE `username` = 'test1';
